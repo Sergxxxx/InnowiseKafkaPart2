@@ -1,6 +1,5 @@
 package com.smelnikov.consumer.config;
 
-import com.smelnikov.consumer.listener.MessageListener;
 import com.smelnikov.libs.dto.Product;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
@@ -21,7 +20,7 @@ import java.util.Map;
 @Configuration
 public class KafkaConsumerConfig {
 
-    @Value(value = "${spring.kafka.consumer.bootstrap-servers}")
+    @Value("${spring.kafka.consumer.bootstrap-servers}")
     private String bootstrapAddress;
 
     public ConsumerFactory<String, Product> consumerFactory() {
@@ -48,10 +47,4 @@ public class KafkaConsumerConfig {
         factory.setConsumerFactory(consumerFactory());
         return factory;
     }
-
-    @Bean
-    public MessageListener messageListener() {
-        return new MessageListener();
-    }
-
 }

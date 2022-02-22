@@ -1,9 +1,8 @@
 package com.smelnikov.producer.restclient.service;
 
 import com.smelnikov.libs.dto.Product;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
@@ -13,12 +12,11 @@ import org.springframework.util.concurrent.ListenableFutureCallback;
 
 @Service
 @Slf4j
-@NoArgsConstructor
+@RequiredArgsConstructor
 public class Producer {
     private static final String TOPIC = "user";
 
-    @Autowired
-    private KafkaTemplate<String, Product> kafkaTemplate;
+    private final KafkaTemplate<String, Product> kafkaTemplate;
 
     @Value(value = TOPIC)
     private String topicName;
@@ -26,7 +24,7 @@ public class Producer {
     public void sendMessage(Product product){
         ListenableFuture<SendResult<String, Product>> listenableFuture = kafkaTemplate.send(topicName, product);
 
-        listenableFuture.addCallback(new ListenableFutureCallback<SendResult<String, Product>>() {
+        listenableFuture.addCallback(new ListenableFutureCallback<>() {
             @Override
             public void onFailure(Throwable ex) {
                 log.error("Unable to send message = {} to: {}", product, ex.getMessage());

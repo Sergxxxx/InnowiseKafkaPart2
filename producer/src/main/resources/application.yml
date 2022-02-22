@@ -5,5 +5,3 @@ spring:
   kafka:
     producer:
       bootstrap-servers: ${KAFKA_URL:localhost:9092}
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.apache.kafka.common.serialization.StringSerializer

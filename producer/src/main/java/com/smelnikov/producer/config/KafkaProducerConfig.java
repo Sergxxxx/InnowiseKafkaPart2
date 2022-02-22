@@ -21,12 +21,15 @@ public class KafkaProducerConfig {
     @Value(value = "${spring.kafka.producer.bootstrap-servers}")
     private String bootstrapAddress;
 
+    private static final int KAFKA_BACKOFF_MS = 30_000;
+
     @Bean
     public ProducerFactory<String, Product> producerFactory(){
         Map<String, Object> config = new HashMap<>();
         config.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapAddress);
         config.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
         config.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
+        config.put(ProducerConfig.RETRY_BACKOFF_MS_CONFIG, KAFKA_BACKOFF_MS);
 
         return new DefaultKafkaProducerFactory<>(config);
     }

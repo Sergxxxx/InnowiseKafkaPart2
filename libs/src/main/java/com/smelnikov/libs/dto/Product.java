@@ -12,14 +12,13 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Document
+@Document(collection="Product")
 public class Product implements Serializable {
 
     @Id
     private ObjectId id;
     private String product_name;
     private String description;
-    private byte[] picture;
+    private String picture;
     private String type;
-
 }

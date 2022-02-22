@@ -5,9 +5,6 @@ spring:
   kafka:
     consumer:
       bootstrap-servers: ${KAFKA_URL:localhost:9092}
-      auto-offset-reset: earliest
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
   data:
     mongodb:
       port: ${MONGO_PORT:27017}
@@ -16,4 +13,6 @@ spring:
       username: ${MONGO_USERNAME:user}
       password: ${MONGO_PASSWORD:password}
 
-
+  batch:
+    job:
+      enabled: true
